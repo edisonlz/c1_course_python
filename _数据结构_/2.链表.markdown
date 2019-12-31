@@ -1,0 +1,119 @@
+#### 线性数据结构：链表
+
+
+
+数组要一块连续的内存空间来存储，对内存的要求比较高。如果我们申请一个100MB大小的数组，当内存中没有连续的、足够大的存储空间时，仍然会申请失败。
+
+链表恰恰相反，它并不需要一块连续的内存空间，它通过“指针”将一组零散的内存块串联起来使用。
+
+![lianbiao](./static/lianbiao.png)
+
+
+链表通过指针将一组零散的【内存块】串联在一起。其中，我们把内存块称为链表的“结点”。为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址。我们把这个记录下个结点地址的指针叫作后继指针 next。
+``` Python
+class Node(object):
+
+    def __init__(self,data,next):
+        self.data = data
+        self.next = next
+
+class LinkedList(object):
+
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+```
+
+####单链表
+
+![单链表](./static/单链表.png)
+
+基本元素：
+节点：每个节点有两个部分，左边部分称为值域，用来存放用户数据；右边部分称为指针域，用来存放指向下一个元素的指针。
+
+head: head节点永远指向第一个节点, 也成为头指针
+tail: tail永远指向最后一个节点，也成为尾指针
+None: 链表中最后一个节点的指针域为None值。
+
+####插入/删除
+
+
+![lianbiao](./static/链表插入删除.png)
+
+插入x节点
+* 第一步 x.next = b.next (c)
+* 第二步 b.next = x 
+
+``` Python
+class Node(object):
+
+    def __init__(self,data,next):
+        self.data = data
+        self.next = next
+
+    def add(self, node):
+        node.next = self.next
+        self.next = node
+```
+
+
+删除b节点
+* 第一步 b.next = None
+* 第二步 b.previous = None
+
+##### 这里b.previous 不是很方便获得前一个node节点
+
+链表种类：单向链表、单向循环链表、双向链表、双向循环链表
+![双向链表](./static/l1.webp)
+
+
+##### 知识点：数组和链表的对比
+链表的特点，插入/删除快 O(1)，查找为一个数据慢 O(n)。
+数组的特点，插入/删除慢 O(n)，查找为一个数据快 O(1)。
+
+##### 链表的应用
+
+*** LRU算法 ***
+
+LRU（Least Recently Used是最近最少使用策略的缩写，是根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。
+
+一般用于缓存过期策略。Memcached,Redis均使用了这种算法管理内存。
+
+
+![LRU算法](./static/l2.webp)
+
+
+让我一起构建一个链表，我的链表容量为5
+
+######链表
+head -> 1 < - > 2 < - > 3 < - > 4 < - > 5
+
+1）插入数据6，读取数据5
+
+head ->  6 < - > 1 < - > 2 < - > 3 < - > 4 < - > 5 <- tail
+
+head -> 5 < - > 6 < - > 1 < - > 2 < - > 3 < - > 4  <- tail
+
+2）数据淘汰
+需要淘汰的数量 = 链表容量 - 链表固定容量 = 6 - 5 = 1
+
+head -> 5 < - > 6 < - > 1 < - > 2 < - > 3  <- tail
+
+##### 一般用于缓存过期策略, 使用链表实现。Memcached,Redis均使用了LRU这种算法管理内存。
+
+
+
+api -> memcache(2G) -> Mysql(db 200G)
+
+>>>>>>>LRU
+
+
+
+
+
+
+
+
+
+
