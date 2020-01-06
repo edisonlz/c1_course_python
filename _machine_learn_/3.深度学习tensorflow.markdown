@@ -1,0 +1,141 @@
+#### 深度学习 
+
+深度学习(DL, Deep Learning)是机器学习(ML, Machine Learning)领域中一个新的研究方向，它被引入机器学习使其更接近于最初的目标——人工智能(AI, Artificial Intelligence)。
+
+深度学习是一类模式分析方法的统称，就具体研究内容而言，主要涉及三类方法：
+* 卷积神经网络
+* 自编码神经网络
+* 深度置信网络
+
+
+什么是神经网络?
+人工神经网络（Artificial Neural Networks，简写为ANNs）也简称为神经网络（NNs）或称作连接模型（Connection Model），它是一种模仿动物神经网络行为特征，进行分布式并行信息处理的算法数学模型。这种网络依靠系统的复杂程度，通过调整内部大量节点之间相互连接的关系，从而达到处理信息的目的。
+
+
+#### 神经网络图例
+![numby](./static/net2.webp)
+
+
+激活函数
+进行非线性变换
+![numby](./static/net1.webp)
+
+流程图
+![numby](./static/tensors_flowing.gif)
+
+
+#### 应用
+自动驾驶 ： https://metacar-project.com/
+根据设计图代码生成：  https://zecoda.com/product
+
+#### 神经网络是如何工作的
+查看示例
+
+
+从示例开始： 识别手写数字
+
+MNIST数据集
+
+下载下来的数据集被分成两部分：60000行的训练数据集（mnist.train）和10000行的测试数据集（mnist.test）
+
+![numby](./static/tu1.png)
+
+![numby](./static/1748.png)
+
+
+#### 线性函数-得分函数
+f(x) = ω1 X1 + ω2 X2 +...+ωdXd + b
+
+```python
+y = xw + b
+```
+
+样本
+![numby](./static/0_3.png)
+输入
+
+<img src='./static/1748.png' width="200px">
+
+
+
+y = x[4 , 784] *  w[784,4] + b[4]
+
+y_ = y_[4,4]
+| |  0   | 1  |  2   |  3  | 
+|    ----     |  ----  | ----  |----  |----  |
+| 0|  120  |  30|  20  | 50 |
+| 1|100  |  80|  60  | 50 |
+| 2|100  |  200|  100  | 50  |
+| 3 |100  |  80|  300  | 20|
+
+#### 损失函数
+
+
+![numby](./static/loss.png)
+
+
+|   0   | 1  |  2   |  3  | 
+|  ----  | ----  |----  |----  |
+| 100  |  80|  60  | 50  | 200 |
+```
+ loss_1 = max(0, 100-80+1) +  
+         max(0,  60-80+1) + 
+         max(0, 50-80+1) + 
+         max(0,  200-80+1)
+= 142
+```
+
+#### 正则化惩罚项
+```python
+x = [1,1,1,1]
+w1 = [1,0,0,0]
+w2 = [0.25,0.25,0.25,0.25]
+w1.T.dot(x) == w2.T.dot(x)
+
+loss_1_w1 = 142  +  100 * 1 = 242
+
+loss_1_w2 = 142  +  100 * 0.25 ** 2 * 4 = 142 + 25 = 167
+
+```
+
+![numby](./static/regular.png)
+
+
+#### softmax分类器
+![numby](./static/softmax.png)
+
+
+![numby](./static/logx.jpg)
+
+#### 前向传播
+```python
+1. 定义线性函数
+y_ = x.dot(w) + b 
+2. 计算概率
+y_p = softmax(y_)
+3. 计算损失值
+loss = -log(y_p)
+```
+
+#### 反向传播
+```python
+目的：减小 loss 值
+更新 w 权重值
+
+```
+
+#### 线性回归
+##### 梯度下降
+
+![numby](./static/g1.webp)
+公式
+![numby](./static/g2.png)
+
+```python 
+对w求偏导
+1/m∑(y - (xw + b))w
+
+更新权重
+w = w + 1/m∑(y - (xw + b))w
+```
+
